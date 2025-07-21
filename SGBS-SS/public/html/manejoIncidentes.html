@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manejo de Incidentes</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/utilities.css">
+  <script>
+    function showSection(section) {
+      const sections = ['register', 'consult', 'update'];
+      sections.forEach(s => {
+        document.getElementById(`${s}-form`).classList.add('hidden');
+      });
+      document.getElementById(`${section}-form`).classList.remove('hidden');
+    }
+
+    function hideForm(formId) {
+      document.getElementById(`${formId}-form`).classList.add('hidden');
+    }
+  </script>
+</head>
+<body class="bg-gray-50">
+  <!-- Barra de Navegaci�n Horizontal -->
+  <header class="bg-blue-800 text-white shadow-lg">
+    <div class="container mx-auto flex items-center justify-between p-6">
+      <img src="../images/logo.png" alt="Logo" class="w-32 h-auto">
+      <nav>
+        <ul class="flex space-x-6">
+                    <li><a href="clientes.html" class="text-gray-200 hover:bg-blue-700 hover:text-white px-4 py-2 rounded-md">Clientes</a></li>
+          <li><a href="aseguradoras.html" class="text-gray-200 hover:bg-blue-700 hover:text-white px-4 py-2 rounded-md">Aseguradoras</a></li>
+          <li><a href="gestionPagos.html" class="text-gray-200 hover:bg-blue-700 hover:text-white px-4 py-2 rounded-md">Gestión de Pagos</a></li>
+          <li><a href="manejoIncidentes.html" class="nav-active px-4 py-2 rounded-md">Manejo de Incidentes</a></li>
+          <li><a href="administracionSistema.html" class="text-gray-200 hover:bg-blue-700 hover:text-white px-4 py-2 rounded-md">Administración del Sistema</a></li>
+          <li><button onclick="window.location.href='index.html'" class="bg-red-600 text-white font-bold py-2 px-4 rounded-md hover:bg-red-700 transition duration-300">Cerrar sesión</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido Principal -->
+  <main class="container mx-auto p-8">
+    <h1 class="text-3xl font-extrabold text-gray-800 mb-6">Manejo de Incidentes</h1>
+    <div class="mb-6 flex flex-wrap gap-4">
+      <button onclick="showSection('register'); hideForm('consult'); hideForm('update');" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">Registrar</button>
+      <button onclick="showSection('consult'); hideForm('register'); hideForm('update');" class="bg-gray-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-gray-700 transition duration-300">Consultar</button>
+      <button onclick="showSection('update'); hideForm('register'); hideForm('consult');" class="bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-green-700 transition duration-300">Actualizar</button>
+    </div>
+
+    <div id="form-container" class="space-y-4">
+      <!-- Formulario de Registrar Incidente -->
+      <form id="register-form" class="hidden grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
+        <h3 class="text-2xl font-bold col-span-full mb-4">Registrar Incidente</h3>
+        
+        <div class="col-span-full">
+          <label for="register-document-id" class="block text-gray-700 font-semibold mb-2">Documento de Identidad:</label>
+          <input type="text" id="register-document-id" name="document_id" placeholder="Ingrese el documento de identidad"  class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+          <span id="register-document-id-validation" class="text-sm"></span>
+      </div>
+        <div>
+          <label for="register-date" class="block text-gray-700 font-semibold mb-2">Fecha del Incidente:</label>
+          <input type="date" id="register-date" name="incident_date"  class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+        </div>
+        <div>
+          <label for="register-description" class="block text-gray-700 font-semibold mb-2">Descripción:</label>
+          <textarea id="register-description" name="description" placeholder="Ingrese la descripción" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"></textarea>
+        </div>
+        <div>
+          <label for="register-location" class="block text-gray-700 font-semibold mb-2">Lugar del Incidente:</label>
+          <input type="text" id="register-location" name="incident_location" placeholder="Ingrese el lugar del incidente" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+        </div>
+        <div>
+          <label for="register-evidence" class="block text-gray-700 font-semibold mb-2">Evidencia:</label>
+          <textarea id="register-evidence" name="evidence" placeholder="Ingrese la evidencia" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"></textarea>
+        </div>
+        <div>
+          <label for="register-incident-type" class="block text-gray-700 font-semibold mb-2">Tipo de Incidente:</label>
+          <select id="register-incident-type" name="register-incident-type" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200" >
+            <option value="">Seleccione el tipo de incidente</option>
+            <option value="Accidente de tráfico">Accidente de tráfico</option>
+            <option value="Robo">Robo</option>
+            <option value="Daños materiales">Daños materiales</option>
+            <option value="Lesiones personales">Lesiones personales</option>
+            <option value="Incendio">Incendio</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+        <div>
+          <label for="register-incident-status" class="block text-gray-700 font-semibold mb-2">Estado del Incidente:</label>
+          <select id="register-incident-status" name="incident_status" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200" >
+            <option value="">Seleccione el estado del incidente</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+        </div>
+        <div class="col-span-full">
+          <button type="submit" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">Registrar</button>
+        </div>
+      </form>
+
+      <!-- Consultar Incidente -->
+      <div id="consult-form" class="hidden max-w-6xl mx-auto bg-white p-8 border border-gray-300 rounded-lg shadow-lg space-y-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Formulario de Consulta</h2>
+    
+        <div>
+            <label for="document-id-consult" class="block text-gray-700 font-semibold mb-2">Documento de Identidad:</label>
+            <input type="text" id="document-id-consult" placeholder="Documento de Identidad" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+        </div>
+        <div class="flex justify-end mt-4">
+            <button type="button" id="consultar" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">Consultar</button>
+        </div>
+    
+        <form id="consult-form" class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
+          <!-- <div>
+            <label for="document-id-consult" class="block text-gray-700 font-semibold mb-2">Documento de Identidad:</label>
+            <input type="text" id="document-id-consult" placeholder="Documento de Identidad" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+        </div> -->
+            <div>
+                <label for="incident-date-consult" class="block text-gray-700 font-semibold mb-2">Fecha del Incidente:</label>
+                <input type="text" id="incident-date-consult" placeholder="Fecha del Incidente"class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"readonly>
+            </div>
+    
+            <div>
+                <label for="description-consult" class="block text-gray-700 font-semibold mb-2">Descripci�n:</label>
+                <input id="description-consult" placeholder="Descripci�n del incidente" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"readonly>
+            </div>
+    
+            <div>
+                <label for="location-consult" class="block text-gray-700 font-semibold mb-2">Lugar del Incidente:</label>
+                <input type="text" id="location-consult" placeholder="Lugar del incidente" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"readonly>
+            </div>
+    
+            <div>
+                <label for="evidence-consult" class="block text-gray-700 font-semibold mb-2">Evidencia:</label>
+                <input id="evidence-consult" placeholder="Evidencia" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"readonly>
+            </div>
+    
+            <div>
+                <label for="incident-type-consult" class="block text-gray-700 font-semibold mb-2">Tipo de Incidente:</label>
+                <input id="incident-type-consult"placeholder="Tipo de incidente" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"readonly>
+            </div>
+    
+            <div>
+                <label for="incident-status-consult" class="block text-gray-700 font-semibold mb-2">Estado del Incidente:</label>
+                <input id="incident-status-consult" placeholder="Estado del incidente"class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"readonly>
+            </div>
+        </form>
+    </div>
+    
+
+      <!-- Actualizar Incidente -->
+      <div id="update-form" class="hidden max-w-6xl mx-auto bg-white p-8 border border-gray-300 rounded-lg shadow-lg space-y-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Formulario de Actualizaci�n</h2>
+        
+        <!-- Documento de Identidad -->
+        <label for="documentoidentidad-update" class="block text-gray-700 font-semibold mb-2">Documento de Identidad:</label>
+        <input type="text" id="documentoidentidad-update" placeholder="Documento de Identidad" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+        
+        <div class="flex justify-end mt-4">
+            <button type="button" id="consultar-update" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">Consultar</button>
+        </div>
+        
+        <!-- Grid Layout for Update Fields -->
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <!-- Otros campos del formulario de actualizaci�n aqu� -->
+    
+            <div>
+                <label for="incident-date-update" class="block text-gray-700 font-semibold mb-2">Fecha del Incidente:</label>
+                <input type="text" id="incident-date-update" placeholder="Fecha del incidente"class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+            </div>
+    
+            <div>
+                <label for="location-update" class="block text-gray-700 font-semibold mb-2">Lugar del Incidente:</label>
+                <input type="text" id="location-update" placeholder="Lugar del incidente" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+            </div>
+    
+            <div class="col-span-2">
+                <label for="description-update" class="block text-gray-700 font-semibold mb-2">Descripci�n:</label>
+                <textarea id="description-update" placeholder="Descripci�n del incidente" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"></textarea>
+            </div>
+    
+            <div>
+                <label for="evidence-update" class="block text-gray-700 font-semibold mb-2">Evidencia:</label>
+                <textarea id="evidence-update" placeholder="Evidencia" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"></textarea>
+            </div>
+    
+            <div>
+                <label for="incident-type-update" class="block text-gray-700 font-semibold mb-2">Tipo de Incidente:</label>
+                <select id="incident-type-update" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                    <option value="">Seleccione el tipo de incidente</option>
+                    <option value="Accidente de tráfico">Accidente de tráfico</option>
+                    <option value="Robo">Robo</option>
+                    <option value="Daños materiales">Daños materiales</option>
+                    <option value="Lesiones personales">Lesiones personales</option>
+                    <option value="Incendio">Incendio</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+    
+            <div>
+                <label for="incident-status-update" class="block text-gray-700 font-semibold mb-2">Estado del Incidente:</label>
+                <select id="incident-status-update" class="block w-full bg-white border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                    <option value="">Seleccione el estado del incidente</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+            </div>
+        </div>
+    
+        <div class="flex justify-end mt-4">
+            <button type="button" id="update-button" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">Actualizar</button>
+        </div>
+    </div>
+    
+    
+    
+    
+  </main>
+
+  <script src="../js/manejoIncidentes.js"></script>
+</body>
+</html>
